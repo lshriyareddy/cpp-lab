@@ -1,35 +1,38 @@
 #include<iostream>
+#include<cstdio>
 using namespace std;
-class resource
+class dates
 {
-	static int res;
+	int dd,mm,yy;
 	public:
-	static int getr();
-	void free_res()
+	dates()
 	{
-		res=0;
+		cout<<"Default date: 1/12/2012 \n";
+	}
+	dates(char *d)
+	{
+		scanf("%d%d%d", &mm,&dd,&yy);
+	}
+	dates(int m,int d,int y)
+	{
+		dd=d;
+		mm=m;
+		yy=y;
+	}
+	void sd()
+	{
+		cout<<"Date is: \n";
+		cout<<mm<<"/"<<dd<<"/"<<yy<<"\n";
 	}
 };
-int resource::res;
-int resource::getr()
-{
-	if(res)
-		return 0;
-	else
-	{
-		res=1;
-		return 1;
-	}
-}
 int main()
 {
-	resource a,b;
-	if(resource::getr())
-	cout<<"Resource under use, object a is using \n";
-	if(!resource::getr())
-	cout<<"Resource busy, object b access denied \n";
-	a.free_res();
-	if(resource::getr())
-	cout<<"Resource can now be used by object b \n";
+	int m,d,y;
+	cout<<"Enter month,date,year \n";
+	cin>>m>>d>>y;
+	cout<<"Enter month,date,year in a single line \n";
+	dates b("m,d,y"),c(m,d,y),e;
+	b.sd();
+	c.sd();
 	return 0;
 }
