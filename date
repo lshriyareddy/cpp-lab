@@ -1,38 +1,35 @@
-//Program to implement a class which accepts date in different formats (using constructor overloading).
 #include<iostream>
-#include<cstdio>
 using namespace std;
-class date
+class resource
 {
-	int day, month, year;
-public:
-	date(char *d);
-	date(int m, int d, int y);
-	void show_date();
+	static int res;
+	public:
+	static int getr();
+	void free_res()
+	{
+		res=0;
+	}
 };
-//Initialize using string
-date::date(char *d)
+int resource::res;
+int resource::getr()
 {
-	sscanf(d, "%d%*c%d%*c%d", &month, &day, &year);
+	if(res)
+		return 0;
+	else
+	{
+		res=1;
+		return 1;
+	}
 }
-//Initialize using integers
-date::date(int m, int d, int y)
-{
-	day=d;
-	month=m;
-	year=y;
-}
-
-void date::show_date()
-{
-	cout << month << "/" << day;
-	cout << "/" << year << "\n";
-}
-
 int main()
 {
-	date ob1(12, 4, 2003), ob2("10/22/2003");
-	ob1.show_date();
-	ob2.show_date();
+	resource a,b;
+	if(resource::getr())
+	cout<<"Resource under use, object a is using \n";
+	if(!resource::getr())
+	cout<<"Resource busy, object b access denied \n";
+	a.free_res();
+	if(resource::getr())
+	cout<<"Resource can now be used by object b \n";
 	return 0;
 }
